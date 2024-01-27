@@ -11,6 +11,7 @@ on:
 name: "Build & Release"
 jobs:
   build:
+    permissions: write-all
     name: Build & Release
     runs-on: macos-latest
     steps:
@@ -24,7 +25,7 @@ jobs:
           channel: 'stable'
           architecture: x64
 
-      # - run: flutter build apk --release --split-per-abi
+      - run: flutter build apk --release --split-per-abi
       - run: |
           flutter build ios --no-codesign
           cd build/ios/iphoneos
