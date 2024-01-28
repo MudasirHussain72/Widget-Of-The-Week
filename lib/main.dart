@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widget_of_the_week/shorebird_cicd/shorebird_cicd.dart';
 import 'package:widget_of_the_week/widgets/cached_video_player.dart';
 
 void main() {
@@ -13,11 +14,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: CachedVideoPlayerWidget(),
-      home: Scaffold(
-        body: Center(
-          child: Text('Learning cicid with github actions'),
-        ),
-      ),
+      home: ShorebirdCicdExample(),
     );
   }
 }
