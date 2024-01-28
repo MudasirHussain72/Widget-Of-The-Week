@@ -12,7 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CachedVideoPlayerWidget(),
+      // home: CachedVideoPlayerWidget(),
+      home: Scaffold(
+        body: Center(
+          child: Text('Learning cicid with github actions'),
+        ),
+      ),
     );
   }
 }
