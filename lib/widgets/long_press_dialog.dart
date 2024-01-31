@@ -100,23 +100,10 @@ class _LongPressDialogState extends State<LongPressDialog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Stack(
-        children: [
-          GridView.count(
-            crossAxisCount: 3,
-            childAspectRatio: 1.0,
-            children: _imageUrlList.map(_createGridTileWidget).toList(),
-          ),
-          if (_popupDialog != null)
-            Positioned.fill(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: Container(
-                  color: Colors.black.withOpacity(0.5),
-                ),
-              ),
-            ),
-        ],
+      body: GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 1.0,
+        children: _imageUrlList.map(_createGridTileWidget).toList(),
       ),
     );
   }
@@ -137,10 +124,12 @@ class _LongPressDialogState extends State<LongPressDialog> {
 
   OverlayEntry _createPopupDialog(String url) {
     return OverlayEntry(
-      builder: (context) => AnimatedDialog(
-        child: _createPopupContent(url),
-      ),
-    );
+        builder: (context) => BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: AnimatedDialog(
+                child: _createPopupContent(url),
+              ),
+            ));
   }
 
   Widget _createPopupContent(String url) => Container(
