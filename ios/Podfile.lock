@@ -9,6 +9,9 @@ PODS:
     - Flutter
     - KTVHTTPCache (~> 2.0.0)
   - CocoaAsyncSocket (7.6.5)
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - ReachabilitySwift
   - Flutter (1.0.0)
   - google_sign_in_ios (0.0.1):
     - Flutter
@@ -26,11 +29,13 @@ PODS:
     - CocoaAsyncSocket
   - KTVHTTPCache (2.0.1):
     - KTVCocoaHTTPServer
+  - ReachabilitySwift (5.0.0)
   - restart_app (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - cached_video_player (from `.symlinks/plugins/cached_video_player/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
   - restart_app (from `.symlinks/plugins/restart_app/ios`)
@@ -44,10 +49,13 @@ SPEC REPOS:
     - GTMSessionFetcher
     - KTVCocoaHTTPServer
     - KTVHTTPCache
+    - ReachabilitySwift
 
 EXTERNAL SOURCES:
   cached_video_player:
     :path: ".symlinks/plugins/cached_video_player/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
     :path: Flutter
   google_sign_in_ios:
@@ -59,6 +67,7 @@ SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   cached_video_player: 9f225ed1c46bda0fe287b8288742329d441e2cc5
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   google_sign_in_ios: 1bfaf6607b44cd1b24c4d4bc39719870440f9ce1
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
@@ -66,6 +75,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 41b9ef0b4c08a6db4b7eb51a21ae5183ec99a2c8
   KTVCocoaHTTPServer: df8d7b861e603ff8037e9b2138aca2563a6b768d
   KTVHTTPCache: 588c3eb16f6bd1e6fde1e230dabfb7bd4e490a4d
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   restart_app: 806659942bf932f6ce51c5372f91ce5e81c8c14a
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
