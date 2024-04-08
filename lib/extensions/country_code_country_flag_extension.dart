@@ -36,7 +36,7 @@ class Person extends Equatable {
 //
 // }
 class CountryCodeToFlagExtension extends StatelessWidget {
-  const CountryCodeToFlagExtension({Key? key}) : super(key: key);
+  const CountryCodeToFlagExtension({super.key});
 
   @override
   Widget build(BuildContext context) {

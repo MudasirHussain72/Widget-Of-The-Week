@@ -134,7 +134,7 @@ class _ShorebirdCicdExampleState extends State<ShorebirdCicdExample> {
       backgroundColor: Colors.deepOrange[100],
       appBar: AppBar(
         backgroundColor: theme.colorScheme.inversePrimary,
-        title: Text('Shorebird Code Push'),
+        title: const Text('Shorebird Code Push'),
       ),
       body: Center(
         child: Column(

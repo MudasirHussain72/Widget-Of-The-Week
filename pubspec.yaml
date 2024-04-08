@@ -46,6 +46,10 @@ dependencies:
   equatable: ^2.0.5
   firebase_core: ^2.25.3
   cloud_firestore: ^4.15.3
+  audio_waveforms: ^1.0.5
+  file_picker: ^8.0.0+1
+  path_provider: ^2.1.2
+  speech_to_text: ^6.6.0
 
 dev_dependencies:
   flutter_test:

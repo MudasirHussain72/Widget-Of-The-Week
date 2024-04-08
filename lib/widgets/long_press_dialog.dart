@@ -32,9 +32,10 @@ List<String> _imageUrlList = [
 ];
 
 class LongPressDialog extends StatefulWidget {
-  LongPressDialog({Key? key}) : super(key: key);
+  const LongPressDialog({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LongPressDialogState createState() => _LongPressDialogState();
 }
 
@@ -92,7 +93,7 @@ class _LongPressDialogState extends State<LongPressDialog> {
         ),
       );
 
-  Widget _createPhotoTitle() => Container(
+  Widget _createPhotoTitle() => SizedBox(
         width: double.infinity,
         child: ClipRect(
           child: BackdropFilter(
@@ -139,7 +140,7 @@ class _LongPressDialogState extends State<LongPressDialog> {
 
 // This a widget to implement the image scale animation, and background grey out effect.
 class AnimatedDialog extends StatefulWidget {
-  const AnimatedDialog({Key? key, this.child}) : super(key: key);
+  const AnimatedDialog({super.key, this.child});
 
   final Widget? child;
 

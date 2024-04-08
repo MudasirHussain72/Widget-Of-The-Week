@@ -47,6 +47,7 @@ class _CachedVideoPlayerWidgetState extends State<CachedVideoPlayerWidget> {
 
     Future.wait(_controllers.map((controller) => controller.initialize()))
         .then((_) {
+      // ignore: avoid_function_literals_in_foreach_calls
       _controllers.forEach(
           (controller) => controller.pause()); // Pause all videos initially
       _controllers[_currentPage].play(); // Play the first video
@@ -68,6 +69,7 @@ class _CachedVideoPlayerWidgetState extends State<CachedVideoPlayerWidget> {
   @override
   void dispose() {
     _pageController.dispose();
+    // ignore: avoid_function_literals_in_foreach_calls
     _controllers.forEach((controller) {
       controller.dispose();
     });
@@ -81,6 +83,7 @@ class _CachedVideoPlayerWidgetState extends State<CachedVideoPlayerWidget> {
       appBar: AppBar(elevation: 0, backgroundColor: Colors.transparent),
       body: PageView.builder(
         controller: _pageController,
+        // ignore: avoid_print
         onPageChanged: (int page) => {print('page changed to $page')},
         scrollDirection: Axis.vertical,
         itemCount: videos.length,

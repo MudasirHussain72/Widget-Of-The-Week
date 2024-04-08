@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 
 class SizeBoxExtensionWidget extends StatelessWidget {
-  const SizeBoxExtensionWidget({Key? key}) : super(key: key);
+  const SizeBoxExtensionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class SizeBoxExtensionWidget extends StatelessWidget {
           children: [
             Text(
           'Hello, World!',
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
           ).center(),
             20.ph,//I
             const ContainerWidget(),
@@ -58,7 +58,7 @@ extension MediaQueryValues on BuildContext {
 
 
 class ContainerWidget extends StatelessWidget {
-  const ContainerWidget({Key? key}) : super(key: key);
+  const ContainerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
