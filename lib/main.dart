@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:widget_of_the_week/controllers/record_speech_to_text_controller.dart';
 import 'package:widget_of_the_week/controllers/services/dependency_injection.dart';
 import 'package:widget_of_the_week/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,12 +21,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      // home: CachedVideoPlayerWidget(),
-      // home: ShorebirdCicdExample(),
-      // home: LongPressDialog(),
-      home: RecordSpeechToText(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => RecordSpeechToTextController(),
+        )
+      ],
+      child: const GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        // home: CachedVideoPlayerWidget(),
+        // home: ShorebirdCicdExample(),
+        // home: LongPressDialog(),
+        home: RecordSpeechToText(),
+      ),
     );
   }
 }
