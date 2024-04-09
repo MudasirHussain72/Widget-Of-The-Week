@@ -27,12 +27,15 @@ class MyApp extends StatelessWidget {
           create: (context) => RecordSpeechToTextController(),
         )
       ],
-      child: const GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        // home: CachedVideoPlayerWidget(),
-        // home: ShorebirdCicdExample(),
-        // home: LongPressDialog(),
-        home: RecordSpeechToText(),
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+        child: const GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          // home: CachedVideoPlayerWidget(),
+          // home: ShorebirdCicdExample(),
+          // home: LongPressDialog(),
+          home: RecordSpeechToText(),
+        ),
       ),
     );
   }

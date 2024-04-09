@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:io';
@@ -12,7 +12,7 @@ class RecordSpeechToTextController with ChangeNotifier {
   late final RecorderController recorderController;
   final TextEditingController messageTextController =
       TextEditingController(); // Define the controller
-
+  final FocusNode messageTextFocusNode = FocusNode();
   String? path;
   String? musicFile;
   bool isRecording = false;
@@ -26,12 +26,20 @@ class RecordSpeechToTextController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String?> transcribeAudio(String filePath) async {
+  final List<String> _messageList = [];
+  List get messageList => _messageList;
+  addMessageToMessageList(String value) {
+    _messageList.add(value);
+    notifyListeners();
+  }
+
+  Future<String?> transcribeAudio(BuildContext context, String filePath) async {
     try {
+      setLoading(true);
       // String apiUrl = 'https://api.openai.com/v1/audio/transcriptions';
       String apiUrl = 'https://api.openai.com/v1/audio/translations';
       const String apiKey =
-          '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';
+          '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';
       var audioFile = File(filePath);
       var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
         ..files.add(await http.MultipartFile.fromPath('file', audioFile.path))
@@ -42,35 +50,33 @@ class RecordSpeechToTextController with ChangeNotifier {
       if (response.statusCode == 200) {
         var responseBody = await response.stream.bytesToString();
         var jsonResponse = jsonDecode(responseBody);
+        messageTextController.text = jsonResponse['text'];
+        notifyListeners();
+        Navigator.pop(context);
+        setLoading(false);
         return jsonResponse['text'];
       } else {
         var errorResponse = await response.stream.bytesToString();
         print(
             'Failed to transcribe audio. Status code: ${response.statusCode}');
         print('Error response body: $errorResponse');
+        setLoading(false);
         return null;
       }
     } catch (e) {
       print('Error transcribing audio: $e');
+      setLoading(false);
       return null;
     }
   }
 
-  // getDir() async {
-  //   setLoading(true);
-  //   appDirectory = await getApplicationDocumentsDirectory();
-  //   path = "${appDirectory.path}/recording.m4a";
-  //   isLoading = false;
-  //   setLoading(false);
-  //   notifyListeners();
-  // }
   Future<void> getDir() async {
     setLoading(true);
     appDirectory = await getApplicationDocumentsDirectory();
     path = "${appDirectory.path}/recording.m4a";
     isLoading = false;
     setLoading(false);
-    return Future.value(); // Ensure the method returns a future
+    return Future.value();
   }
 
   Future<void> initialiseControllers() async {
@@ -80,7 +86,7 @@ class RecordSpeechToTextController with ChangeNotifier {
       ..iosEncoder = IosEncoder.kAudioFormatMPEG4AAC
       ..sampleRate = 44100;
     setLoading(false);
-    return Future.value(); // Ensure the method returns a future
+    return Future.value();
   }
 
   void pickFile() async {
@@ -95,7 +101,7 @@ class RecordSpeechToTextController with ChangeNotifier {
     }
   }
 
-  void startOrStopRecording() async {
+  void startOrStopRecording(BuildContext context) async {
     try {
       if (isRecording) {
         // Stop recording
@@ -104,7 +110,7 @@ class RecordSpeechToTextController with ChangeNotifier {
         if (path != null) {
           isRecordingCompleted = true;
           // Transcribe the recorded audio
-          String? transcription = await transcribeAudio(path!);
+          String? transcription = await transcribeAudio(context, path!);
           if (transcription != null) {
             // Handle the transcription here
             print('Transcription: $transcription');
