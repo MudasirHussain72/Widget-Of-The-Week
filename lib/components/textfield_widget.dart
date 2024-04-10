@@ -42,9 +42,9 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        value.startOrStopRecording(context);
+                        value.startRecording(context);
                         showModalBottomSheet(
-                          // isDismissible: false,
+                          isDismissible: true,
                           context: context,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
@@ -108,71 +108,89 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                                           ),
                                   ),
                                   const SizedBox(height: 30),
-                                  provider.isRecording
-                                      ? Column(
-                                          children: [
-                                            GestureDetector(
-                                                onTap: () => provider
-                                                    .startOrStopRecording(
-                                                        context),
-                                                child: Container(
-                                                    height: 48,
-                                                    width: 48,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color: Color(
-                                                                0xff4C4C4C)),
-                                                    child: Center(
-                                                      child: Container(
-                                                        height: 17,
-                                                        width: 17,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.5),
-                                                            color: const Color(
-                                                                0xffF97066)),
-                                                      ),
-                                                    ))),
-                                            const Text(
-                                              'Stop Recording',
-                                              style: TextStyle(
-                                                  color: Color(0xff94969C),
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        )
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            if (provider.isLoading)
-                                              SizedBox(
-                                                height: 14,
-                                                width: 14,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                        strokeWidth: 2,
-                                                        color: Colors.white),
-                                              ),
-                                            SizedBox(width: 10),
-                                            if (provider.isLoading)
-                                              Text(
-                                                'Converting to text!',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 14),
-                                              ),
-                                          ],
+                                  if (provider.isRecording)
+                                    Column(
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () =>
+                                                provider.stopRecording(context),
+                                            child: Container(
+                                                height: 48,
+                                                width: 48,
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xff4C4C4C)),
+                                                child: Center(
+                                                  child: Container(
+                                                    height: 17,
+                                                    width: 17,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.5),
+                                                        color: const Color(
+                                                            0xffF97066)),
+                                                  ),
+                                                ))),
+                                        const Text(
+                                          'Stop Recording',
+                                          style: TextStyle(
+                                              color: Color(0xff94969C),
+                                              fontSize: 14),
                                         ),
+                                      ],
+                                    ),
+                                  if (provider
+                                      .loading) // Show loading indicator while transcribing
+                                    const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 14,
+                                          width: 14,
+                                          child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              color: Colors.white),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Converting to text!',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  if (provider.errorMessage != null)
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          provider.errorMessage.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14),
+                                        ),
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              value.transcribeAudio(
+                                                  context, value.path!);
+                                            },
+                                            child: const Text('Retry'))
+                                      ],
+                                    ),
                                 ],
                               ),
                             ),
                           ),
-                        );
+                        ).whenComplete(() {
+                          // Perform actions when the bottom sheet is dismissed
+                          value.stopRecording(context);
+                          value.clearRecording().then((_) {
+                            value.stopTranscription(context);
+                          });
+                        });
                       },
                       icon: const Icon(
                         Icons.mic_none_rounded,

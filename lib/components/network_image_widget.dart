@@ -7,13 +7,12 @@ class NetworkImageWidget extends StatelessWidget {
   final String imageUrl;
   final double width, height, borderRadius, iconSize;
   const NetworkImageWidget(
-      {Key? key,
+      {super.key,
       required this.imageUrl,
       this.width = 40,
       this.height = 40,
       this.borderRadius = 18,
-      this.iconSize = 20})
-      : super(key: key);
+      this.iconSize = 20});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,7 @@ class NetworkImageWidget extends StatelessWidget {
 class LoadingWidget extends StatelessWidget {
   final double size;
 
-  const LoadingWidget({Key? key, this.size = 36.0}) : super(key: key);
+  const LoadingWidget({super.key, this.size = 36.0});
 
   @override
   Widget build(BuildContext context) {
