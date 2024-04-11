@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RecordSpeechToTextController with ChangeNotifier {
   late final RecorderController recorderController;
@@ -62,8 +63,7 @@ class RecordSpeechToTextController with ChangeNotifier {
         log('transcribeAudio running');
         // String apiUrl = 'https://api.openai.com/v1/audio/transcriptions';
         String apiUrl = 'https://api.openai.com/v1/audio/translations';
-        const String apiKey =
-            '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';
+        String apiKey = dotenv.get('OPENAIAPIKEY');
         var audioFile = File(filePath);
         var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
           ..files.add(await http.MultipartFile.fromPath('file', audioFile.path))
