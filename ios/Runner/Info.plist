@@ -11,6 +11,8 @@
 <string>This app requires Mic permission.</string>	
 <key>NSMicrophoneUsageDescription</key>
 <string>This app requires Mic permission.</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>This app requires NSPhotoLibraryUsageDescription permission.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
